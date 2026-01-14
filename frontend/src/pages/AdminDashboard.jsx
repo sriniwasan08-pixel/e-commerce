@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api';
 import './Admin.css';
 
 const AdminDashboard = () => {
@@ -20,10 +21,10 @@ const AdminDashboard = () => {
     const fetchDashboardData = async () => {
         try {
             const [statsRes, ordersRes] = await Promise.all([
-                fetch('/api/orders/stats/summary', {
+                fetch(`${API_BASE_URL}/api/orders/stats/summary`, {
                     headers: { 'Authorization': `Bearer ${user.token}` }
                 }),
-                fetch('/api/orders', {
+                fetch(`${API_BASE_URL}/api/orders`, {
                     headers: { 'Authorization': `Bearer ${user.token}` }
                 })
             ]);

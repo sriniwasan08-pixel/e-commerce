@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api';
 import './Admin.css';
 
 const AdminOrders = () => {
@@ -14,7 +15,7 @@ const AdminOrders = () => {
 
     const fetchOrders = async () => {
         try {
-            const response = await fetch('/api/orders', {
+            const response = await fetch(`${API_BASE_URL}/api/orders`, {
                 headers: { 'Authorization': `Bearer ${user.token}` }
             });
             if (response.ok) {
@@ -30,7 +31,7 @@ const AdminOrders = () => {
 
     const updateOrderStatus = async (orderId, orderStatus, paymentStatus) => {
         try {
-            const response = await fetch(`/api/orders/${orderId}/status`, {
+            const response = await fetch(`${API_BASE_URL}/api/orders/${orderId}/status`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

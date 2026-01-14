@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
+import API_BASE_URL from '../config/api';
 import './Products.css';
 
 const Products = () => {
@@ -25,7 +26,7 @@ const Products = () => {
 
     const fetchCategories = async () => {
         try {
-            const response = await fetch('/api/products/categories');
+            const response = await fetch(`${API_BASE_URL}/api/products/categories`);
             const data = await response.json();
             setCategories(['All', ...data]);
         } catch (error) {
@@ -43,7 +44,7 @@ const Products = () => {
                 page
             });
 
-            const response = await fetch(`/api/products?${params}`);
+            const response = await fetch(`${API_BASE_URL}/api/products?${params}`);
             const data = await response.json();
             setProducts(data.products);
             setTotalPages(data.pages);

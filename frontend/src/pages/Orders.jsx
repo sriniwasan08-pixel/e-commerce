@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api';
 import './Orders.css';
 
 const Orders = () => {
@@ -16,7 +17,7 @@ const Orders = () => {
 
     const fetchOrders = async () => {
         try {
-            const response = await fetch('/api/orders/myorders', {
+            const response = await fetch(`${API_BASE_URL}/api/orders/myorders`, {
                 headers: { 'Authorization': `Bearer ${user.token}` }
             });
             if (response.ok) {

@@ -2,6 +2,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import HeroBackground3D from '../components/HeroBackground3D';
+import API_BASE_URL from '../config/api';
 import './Home.css';
 
 const Home = () => {
@@ -14,7 +15,7 @@ const Home = () => {
 
     const fetchFeaturedProducts = async () => {
         try {
-            const response = await fetch('/api/products/featured');
+            const response = await fetch(`${API_BASE_URL}/api/products/featured`);
             const data = await response.json();
             setFeaturedProducts(data);
         } catch (error) {

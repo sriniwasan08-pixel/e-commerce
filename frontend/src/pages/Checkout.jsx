@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api';
 import './Checkout.css';
 
 const Checkout = () => {
@@ -37,7 +38,7 @@ const Checkout = () => {
         setLoading(true);
 
         try {
-            const response = await fetch('/api/orders', {
+            const response = await fetch(`${API_BASE_URL}/api/orders`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
+import API_BASE_URL from '../config/api';
 
 const CartContext = createContext();
 
@@ -36,7 +37,7 @@ export const CartProvider = ({ children }) => {
 
         try {
             setLoading(true);
-            const response = await fetch('/api/cart', {
+            const response = await fetch(`${API_BASE_URL}/api/cart`, {
                 headers: { 'Authorization': `Bearer ${user.token}` }
             });
             const data = await response.json();
@@ -54,7 +55,7 @@ export const CartProvider = ({ children }) => {
         if (isAuthenticated && user?.token) {
             try {
                 setLoading(true);
-                const response = await fetch('/api/cart/add', {
+                const response = await fetch(`${API_BASE_URL}/api/cart/add`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -96,7 +97,7 @@ export const CartProvider = ({ children }) => {
         if (isAuthenticated && user?.token) {
             try {
                 setLoading(true);
-                const response = await fetch('/api/cart/update', {
+                const response = await fetch(`${API_BASE_URL}/api/cart/update`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -139,7 +140,7 @@ export const CartProvider = ({ children }) => {
         if (isAuthenticated && user?.token) {
             try {
                 setLoading(true);
-                const response = await fetch(`/api/cart/remove/${productId}`, {
+                const response = await fetch(`${API_BASE_URL}/api/cart/remove/${productId}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${user.token}` }
                 });
@@ -169,7 +170,7 @@ export const CartProvider = ({ children }) => {
         if (isAuthenticated && user?.token) {
             try {
                 setLoading(true);
-                await fetch('/api/cart/clear', {
+                await fetch(`${API_BASE_URL}/api/cart/clear`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${user.token}` }
                 });

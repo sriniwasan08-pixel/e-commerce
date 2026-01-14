@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
@@ -21,7 +22,7 @@ const ProductDetail = () => {
 
     const fetchProduct = async () => {
         try {
-            const response = await fetch(`/api/products/${id}`);
+            const response = await fetch(`${API_BASE_URL}/api/products/${id}`);
             if (response.ok) {
                 const data = await response.json();
                 setProduct(data);

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api';
 import './Admin.css';
 
 const AdminProducts = () => {
@@ -27,7 +28,7 @@ const AdminProducts = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch('/api/products?limit=100');
+            const response = await fetch(`${API_BASE_URL}/api/products?limit=100`);
             if (response.ok) {
                 const data = await response.json();
                 setProducts(data.products);
@@ -51,8 +52,8 @@ const AdminProducts = () => {
 
         try {
             const url = editingProduct
-                ? `/api/products/${editingProduct._id}`
-                : '/api/products';
+                ? `${API_BASE_URL}/api/products/${editingProduct._id}`
+                : `${API_BASE_URL}/api/products`;
 
             const response = await fetch(url, {
                 method: editingProduct ? 'PUT' : 'POST',
@@ -76,7 +77,7 @@ const AdminProducts = () => {
         if (!window.confirm('Are you sure you want to delete this product?')) return;
 
         try {
-            const response = await fetch(`/api/products/${productId}`, {
+            const response = await fetch(`${API_BASE_URL}/api/products/${productId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${user.token}` }
             });
