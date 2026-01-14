@@ -30,10 +30,28 @@ app.use(helmet({
 app.use(compression());
 
 // CORS configuration for production
+const allowedOrigins = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    process.env.FRONTEND_URL,
+    // Allow Vercel preview deployments
+].filter(Boolean);
+
 const corsOptions = {
-    origin: process.env.NODE_ENV === 'production'
-        ? process.env.FRONTEND_URL
-        : ['http://localhost:3000', 'http://127.0.0.1:3000'],
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl)
+        if (!origin) return callback(null, true);
+
+        // Allow any Vercel domain
+        if (origin.includes('.vercel.app') || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else if (process.env.NODE_ENV !== 'production') {
+            // In development, allow all origins
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
     optionsSuccessStatus: 200
 };
